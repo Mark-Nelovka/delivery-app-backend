@@ -11,7 +11,7 @@ const pool = new Pool({
 });
 
 async function addUser(req, res) {
-  const { user, products } = req.body;
+  const { user, products, date } = req.body;
   let userId = "";
   try {
     const checkUser = await pool.query(
@@ -28,9 +28,9 @@ async function addUser(req, res) {
     }
 
     await pool.query(
-      `INSERT INTO orders (user_id, orders)
-     VALUES ($1, $2)`,
-      [userId, products]
+      `INSERT INTO orders (user_id, orders, date)
+     VALUES ($1, $2, $3)`,
+      [userId, products, date]
     );
     res.status(200).json({
       code: 200,

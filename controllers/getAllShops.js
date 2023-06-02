@@ -20,7 +20,6 @@ async function getAllShops(req, res) {
       data: JSON.stringify(allShops.rows),
     });
   } catch (error) {
-    console.log(error);
     res.status(500).json({
       code: 500,
       status: "error",

@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import shopsRoute from "./routes/shops/shopsRoute.js";
 import usersRoute from "./routes/user/usersRoute.js";
+import historyRoute from "./routes/history/historyRoute.js";
 
 dotenv.config();
 
@@ -13,6 +14,7 @@ app.use(express.json());
 
 app.use("/shops", shopsRoute);
 app.use("/users", usersRoute);
+app.use("/history", historyRoute);
 
 app.use((req, res) => {
   res.status(404).json({ message: "404 Not found" });
