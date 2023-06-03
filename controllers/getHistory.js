@@ -2,12 +2,9 @@ import pkg from "pg";
 import dotenv from "dotenv";
 dotenv.config();
 const { Pool } = pkg;
+const { POSTGRES_URL } = process.env;
 const pool = new Pool({
-  host: "localhost",
-  database: "delivery",
-  port: 5432,
-  user: "root",
-  password: "root",
+  connectionString: POSTGRES_URL + "?sslmode=require",
 });
 
 async function getHistory(req, res) {

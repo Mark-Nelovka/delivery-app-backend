@@ -2,12 +2,9 @@ import pkg from "pg";
 import dotenv from "dotenv";
 dotenv.config();
 const { Pool } = pkg;
+const { POSTGRES_URL } = process.env;
 const pool = new Pool({
-  host: "localhost",
-  database: "delivery",
-  port: 5432,
-  user: "root",
-  password: "root",
+  connectionString: POSTGRES_URL + "?sslmode=require",
 });
 
 async function addUser(req, res) {
@@ -19,14 +16,13 @@ async function addUser(req, res) {
     );
     if (checkUser.rows.length === 0) {
       const createUser = await pool.query(
-        `insert into users (user_name, user_email, user_phone, user_addres) values ($1, $2, $3, $4) returning user_id;`,
+        `insert into users (user_name, user_email, user_phone, user_address) values ($1, $2, $3, $4) returning user_id;`,
         [user.name, user.email, user.phone, user.address]
       );
       userId = createUser.rows[0].user_id;
     } else {
       userId = checkUser.rows[0].user_id;
     }
-
     await pool.query(
       `INSERT INTO orders (user_id, orders, date)
      VALUES ($1, $2, $3)`,
@@ -39,6 +35,7 @@ async function addUser(req, res) {
       data: req.body,
     });
   } catch (error) {
+    console.log(error);
     res.status(500).json({
       code: 500,
       status: "error",
