@@ -14,7 +14,7 @@ async function getAllShops(req, res) {
       code: 200,
       status: "success",
       message: "Shops was loading",
-      data: JSON.stringify(allShops.rows),
+      data: allShops.rows,
     });
   } catch (error) {
     res.status(500).json({
