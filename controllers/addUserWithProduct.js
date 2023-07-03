@@ -39,7 +39,7 @@ async function addUser(req, res) {
     res.status(500).json({
       code: 500,
       status: "error",
-      message: "Something went wrong",
+      message: "Ooops, something went wrong. Please, try again leter",
       data: {
         error,
       },
