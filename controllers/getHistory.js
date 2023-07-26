@@ -35,7 +35,6 @@ async function getHistory(req, res) {
       data: null,
     });
   } catch (error) {
-    console.log(error);
     res.status(500).json({
       code: 500,
       status: "error",

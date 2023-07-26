@@ -35,7 +35,6 @@ async function addUser(req, res) {
       data: req.body,
     });
   } catch (error) {
-    console.log(error);
     res.status(500).json({
       code: 500,
       status: "error",
